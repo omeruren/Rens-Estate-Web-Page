@@ -1,8 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Userouter from './routes/user.route.js';
-import AuthRouter from './routes/auth.route.js';
+import Userouter from "./routes/user.route.js";
+import AuthRouter from "./routes/auth.route.js";
 
 dotenv.config();
 
@@ -21,4 +21,10 @@ app.listen(3000, () => {
 });
 
 app.use("/api/user", Userouter);
-app.use('/api/auth', AuthRouter);
+app.use("/api/auth", AuthRouter);
+
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  return res.status(statusCode).json({ success: false, statusCode, message });
+});
