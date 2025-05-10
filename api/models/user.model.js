@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    avatar: {
+        type: String,
+        default: "https:sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png"
+    },
 },{timestamps: true});
 
 const User = mongoose.model('User',userSchema);
