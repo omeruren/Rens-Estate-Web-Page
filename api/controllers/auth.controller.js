@@ -11,7 +11,7 @@ export const signup = async (req, res, next) => {
     await newUser.save();
     res
       .status(201)
-      .json({ success: true, message: "User Created Succesfully" });
+      .json({ success: true, message: "User Created successfully" });
   } catch (error) {
     next(error);
   }
@@ -28,7 +28,7 @@ export const signin = async (req, res, next) => {
       password,
       isValidUser.password
     );
-    if (!isValidPassword) return next(errorHandler(401, "Wrong Cridentials!"));
+    if (!isValidPassword) return next(errorHandler(401, "Wrong Credentials!"));
     const token = jwt.sign({ id: isValidUser._id }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = isValidUser._doc;
     res
