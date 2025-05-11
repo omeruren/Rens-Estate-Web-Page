@@ -95,7 +95,7 @@ export default function Profile() {
           update
         </button>
         <div className="flex justify-between mt-5">
-          <span className="text-red-600 cursor-pointer">Delete Acoount</span>
+          <span className="text-red-600 cursor-pointer">Delete Account</span>
           <span className="text-red-600 cursor-pointer">Sign Out</span>
         </div>
       </form>
