@@ -1,4 +1,5 @@
 import Listing from "../models/listing.model.js";
+import { errorHandler } from "../utils/error.js";
 
  export const createListing = async (req, res, next) => {
     try {
@@ -8,3 +9,21 @@ import Listing from "../models/listing.model.js";
         next(error);
     }
  }
+
+  export const deleteListing = async (req, res, next) => {
+      const listingId = Listing.findById(req.params.id);
+
+      if (!listingId) {
+          return res.status(404).json({ message: "Listing not found" });
+      }
+
+      if (req.user._id !== listingId.userId) {
+          return next(errorHandler(403,"You are not allowed to delete this listing"));
+      }
+      try {
+          await Listing.findByIdAndDelete(req.params.id);
+          return res.status(200).json({ message: "Listing deleted successfully" });
+      } catch (error) {
+          next(error);
+      }
+    }
