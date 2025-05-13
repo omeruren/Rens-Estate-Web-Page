@@ -138,6 +138,23 @@ export default function Profile() {
     setShowListsError(true);
    }
   }
+
+  const handleDeleteListing = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setShowListsError(true);
+        return;
+      }
+      setUserLists((prev) => prev.filter((list) => list._id !== listingId));
+    } catch (error) {
+      setShowListsError(true);
+    }
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7 ">Profile</h1>
@@ -233,7 +250,7 @@ export default function Profile() {
               <p >{list.name} </p>
               </Link>
               <div className="gap-2 flex items-center">
-                <button><MdDelete className="" size={25}/></button>
+                <button onClick={()=>handleDeleteListing(list._id)}><MdDelete className="" size={25}/></button>
                 <button><FaEdit className="" size={25}/></button>
               </div>
             </div>
