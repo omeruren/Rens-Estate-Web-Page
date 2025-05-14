@@ -111,7 +111,7 @@ export const Listing = () => {
               </p>
               {listing.offer && (
                 <p className="bg-green-700 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  {+listing.regularPrice - +listing.discountedPrice}€
+                  {+listing.regularPrice - +listing.discountedPrice}€ DISCOUNT
                 </p>
               )}{" "}
             </div>
