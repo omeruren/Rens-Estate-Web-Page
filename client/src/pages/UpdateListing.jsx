@@ -10,10 +10,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
-
 export const UpdateListing = () => {
-
-
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const params = useParams();
@@ -46,8 +43,7 @@ export const UpdateListing = () => {
         console.log(data.message);
         return;
       }
-      setFormData(data)
-
+      setFormData(data);
     };
 
     fetchListing();
@@ -306,7 +302,9 @@ export const UpdateListing = () => {
               />
               <div className=" flex flex-col items-center">
                 <p>Regular Price</p>
-                <span className="text-xs">($ / Month)</span>
+                {formData.type === "forRent" && (
+                  <span className="text-xs">($ / month)</span>
+                )}
               </div>
             </div>
             {formData.offer && (
@@ -322,7 +320,9 @@ export const UpdateListing = () => {
                 />
                 <div className=" flex flex-col items-center">
                   <p>Discounted Price</p>
-                  <span className="text-xs">($ / Month)</span>
+                  {formData.type === "forRent" && (
+                    <span className="text-xs">($ / month)</span>
+                  )}
                 </div>
               </div>
             )}
