@@ -13,70 +13,85 @@ export const Search = () => {
   });
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
   const navigate = useNavigate();
-  console.log(listings)
+  console.log(listings);
 
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const term = searchParams.get("searchTerm");
-        const type = searchParams.get("type");
-        const parking = searchParams.get("parking");
-        const furnished = searchParams.get("furnished");
-        const offer = searchParams.get("offer");
-        const sort = searchParams.get("sort");
-        const order = searchParams.get("order");
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const term = searchParams.get("searchTerm");
+    const type = searchParams.get("type");
+    const parking = searchParams.get("parking");
+    const furnished = searchParams.get("furnished");
+    const offer = searchParams.get("offer");
+    const sort = searchParams.get("sort");
+    const order = searchParams.get("order");
 
-        if (term || type || parking || furnished || offer || sort || order) {
-            setSideBarData({
-                searchTerm: term || "asc",
-                type: type || "all",
-                parking: parking === "true" ? true : false,
-                furnished: furnished === "true" ? true : false,
-                offer: offer === "true" ? true : false,
-                sort: sort || "created_at",
-                order: order || "desc",
-            });
-                
-        }
-
-        const fetchListings = async () => {
-            setLoading(true)
-            const searchQuery = searchParams.toString();
-            const res = await fetch(`/api/listing/get/?${searchQuery}`);
-            const data = await res.json();
-            setLoading(false)
-            setListings(data);
-        }
-
-        fetchListings();
-
-    } , [location.search]);
-
-  const handleChange = (e) => {
-    if (e.target.id === 'all' || e.target.id === 'forRent' || e.target.id === 'forSale'){
-        setSideBarData({
-          ...sideBarData,
-          type: e.target.id,
-        })
+    if (term || type || parking || furnished || offer || sort || order) {
+      setSideBarData({
+        searchTerm: term || "",
+        type: type || "all",
+        parking: parking === "true" ? true : false,
+        furnished: furnished === "true" ? true : false,
+        offer: offer === "true" ? true : false,
+        sort: sort || "created_at",
+        order: order || "desc",
+      });
     }
 
-    if (e.target.id === 'searchTerm') {
+    const fetchListings = async () => {
+      setLoading(true);
+      setShowMore(false);
+      const searchQuery = searchParams.toString();
+      const res = await fetch(`/api/listing/get/?${searchQuery}`);
+      const data = await res.json();
+
+      if (data.length > 8) {
+        setShowMore(true);
+      }else {
+        setShowMore(false);
+      }
+      setLoading(false);
+      setListings(data);
+    };
+
+    fetchListings();
+  }, [location.search]);
+
+  const handleChange = (e) => {
+    if (
+      e.target.id === "all" ||
+      e.target.id === "forRent" ||
+      e.target.id === "forSale"
+    ) {
+      setSideBarData({
+        ...sideBarData,
+        type: e.target.id,
+      });
+    }
+
+    if (e.target.id === "searchTerm") {
       setSideBarData({
         ...sideBarData,
         searchTerm: e.target.value,
       });
     }
-      if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'offer') {
-        setSideBarData({
-          ...sideBarData,
-          [e.target.id]: e.target.checked || e.target.checked === 'true' ? true : false,
-        });
-      }
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
+      setSideBarData({
+        ...sideBarData,
+        [e.target.id]:
+          e.target.checked || e.target.checked === "true" ? true : false,
+      });
+    }
 
-    if (e.target.id === 'sort_order') {
+    if (e.target.id === "sort_order") {
       const sort = e.target.value.split("_")[0] || "created_at";
-        const order = e.target.value.split("_")[1] || "desc";
+      const order = e.target.value.split("_")[1] || "desc";
 
       setSideBarData({
         ...sideBarData,
@@ -84,22 +99,35 @@ export const Search = () => {
         order: order,
       });
     }
-     
   };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const searchParams = new URLSearchParams();
-        searchParams.set("searchTerm", sideBarData.searchTerm);
-        searchParams.set("type", sideBarData.type);
-        searchParams.set("parking", sideBarData.parking);
-        searchParams.set("furnished", sideBarData.furnished);
-        searchParams.set("offer", sideBarData.offer);
-        searchParams.set("sort", sideBarData.sort);
-        searchParams.set("order", sideBarData.order);
-        const searchQuery = searchParams.toString();
-        navigate(`/search?${searchQuery}`);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchParams = new URLSearchParams();
+    searchParams.set("searchTerm", sideBarData.searchTerm);
+    searchParams.set("type", sideBarData.type);
+    searchParams.set("parking", sideBarData.parking);
+    searchParams.set("furnished", sideBarData.furnished);
+    searchParams.set("offer", sideBarData.offer);
+    searchParams.set("sort", sideBarData.sort);
+    searchParams.set("order", sideBarData.order);
+    const searchQuery = searchParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const searchParams = new URLSearchParams(location.search);
+    const startIndex = numberOfListings ;
+    searchParams.set("startIndex", startIndex);
+    const searchQuery = searchParams.toString();
+    const res = await fetch(`/api/listing/get/?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
     }
+    setListings([...listings, ...data]);
+  };
   return (
     <div className="flex flex-col md:flex-row">
       <div className=" p-7 border-b-2 md:border-r-2 md:min-h-screen border-slate-200">
@@ -212,17 +240,31 @@ export const Search = () => {
           Listing Results
         </h1>
         <div className="p-4 flex flex-wrap gap-4">
-            {!loading && listings.length === 0  &&(
-                <p className="text-2xl font-semibold ">No Listing Found</p>
-            )}
-            {loading && (
-                <p className=" text-center text-2xl font-semibold w-full ">Loading...</p>
-            )}
-            {!loading && listings && listings.map((listing) => (
-                <ListingCard key={listing._id} listing={listing} />
+          {!loading && listings.length === 0 && (
+            <p className="text-2xl font-semibold ">No Listing Found</p>
+          )}
+          {loading && (
+            <p className=" text-center text-2xl font-semibold w-full ">
+              Loading...
+            </p>
+          )}
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingCard key={listing._id} listing={listing} />
             ))}
         </div>
-      </div> 
+        <div className="text-center p-4">
+          {showMore && (
+            <button
+              className="  bg-blue-600 text-white p-3 rounded-lg hover:opacity-95"
+              onClick={onShowMoreClick}
+            >
+              Show More
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

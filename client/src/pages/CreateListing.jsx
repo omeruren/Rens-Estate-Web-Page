@@ -185,7 +185,7 @@ const { currentUser } = useSelector((state) => state.user);
             type="text"
             id="location"
             placeholder="Location"
-            minLength={10}
+            
             maxLength={100}
             required
             onChange={handleChange}
