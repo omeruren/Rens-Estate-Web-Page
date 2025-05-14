@@ -68,6 +68,12 @@ export const updateListing = async (req, res, next) => {
 };
 
 export const getListing = async (req, res, next) => {
+     const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(errorHandler(400, "Invalid listing ID"));
+  }
+
   try {
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
