@@ -12,8 +12,6 @@ export default function Home() {
   const [rentListings, setRentListings] = useState([]);
   SwiperCore.use([Navigation,Pagination,Autoplay]);
 
- 
-;
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -46,6 +44,7 @@ export default function Home() {
     };
     fetchListings();
   }, []);
+  
   return (
     <div>
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
@@ -68,7 +67,9 @@ export default function Home() {
       <Swiper navigation pagination autoplay={{
           delay: 3500,
           disableOnInteraction: false,
-        }}>
+        }}
+        loop={true}
+        >
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (

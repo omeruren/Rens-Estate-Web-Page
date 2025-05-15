@@ -239,7 +239,7 @@ export const Search = () => {
         <h1 className="text-3xl font-semibold border-b p-3 mt-5 ">
           Listing Results
         </h1>
-        <div className="p-4 flex flex-wrap gap-4">
+        <div className="p-4 grid grid-cols-1  2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 gap-4">
           {!loading && listings.length === 0 && (
             <p className="text-2xl font-semibold ">No Listing Found</p>
           )}
