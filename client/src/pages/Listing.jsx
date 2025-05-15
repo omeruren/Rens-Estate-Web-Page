@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css/bundle";
 import {
   FaBath,
@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { ContactLandlord } from "../components/ContactLandlord";
 
 export const Listing = () => {
-  SwiperCore.use([Navigation]);
+  SwiperCore.use([Navigation, Pagination]);
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -25,7 +25,6 @@ export const Listing = () => {
   const [contactLandlord, setContactLandlord] = useState(false);
   const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
-
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -62,7 +61,7 @@ export const Listing = () => {
 
       {listing && !loading && !error && (
         <>
-          <Swiper navigation>
+          <Swiper navigation pagination>
             {listing.images.map((url) => (
               <SwiperSlide key={url}>
                 <div
@@ -94,18 +93,20 @@ export const Listing = () => {
           )}
 
           <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
-            <p className="text-2xl font-semibold">
+            <p className="text-center text-3xl font-semibold">
               {listing.name} -{" "}
               {formatPrice(
                 listing.offer ? listing.discountedPrice : listing.regularPrice
               )}
               {listing.type === "forRent" && " / month"}
             </p>
-            <p className="flex items-center gap-2 mt-6 text-slate-600 text-m text-semibold">
-              <FaMapMarkerAlt size={25} className="text-green-600" />
-              {listing.location}
-            </p>
-            <div className="flex gap-4 ">
+            <div className="flex items-center gap-2 justify-center">
+              <FaMapMarkerAlt size={25} className="border-b text-green-600" />
+              <p className="  text-slate-600 text-lg text-bold">
+                {listing.location}
+              </p>
+            </div>
+            <div className="flex jus gap-4 mt-2">
               <p className="bg-red-700 w-full max-w-[200px] text-white text-center p-1 rounded-md">
                 {listing.type === "forRent" ? "For Rent" : "For Sale"}
               </p>
@@ -115,30 +116,52 @@ export const Listing = () => {
                 </p>
               )}{" "}
             </div>
-            <p className="text-slate-800"> 
-                <span className="font-semibold text-black">Description - </span>
-                {listing.description}
+            <p className="text-slate-800 text-justify text-lg">
+              <span className="font-semibold text-black">Description - </span>
+              {listing.description}
             </p>
-            <ul className="flex flex-wrap items-center  mt-6 gap-4 sm:gap-6  ">
-                <li className="flex items-center gap-2 whitespace-nowrap"><FaBed size={25} className="text-lg"/>
-                {listing.bedrooms > 1 ? `${listing.bedrooms} Bedrooms` : `${listing.bedrooms} Bedroom`}
-                </li>
-                <li className="flex items-center gap-2 whitespace-nowrap"><FaBath size={25} className="text-lg"/>
-                {listing.bathrooms > 1 ? `${listing.bathrooms} Bathrooms` : `${listing.bathrooms} Bathroom`}
-                </li>
-                <li className="flex items-center gap-2 whitespace-nowrap"> <FaParking size={25} className="text-lg"/>
-                {listing.parking ? <span className="text-green-500">Parking Spot</span> : <span className="text-red-500">No Parking Spot</span>}
-               
-                </li>
-                <li className="flex items-center gap-2 whitespace-nowrap"><FaCouch size={25} className="text-lg"/>
-                {listing.furnished ? <span className="text-green-500">Furnished</span> : <span className="text-red-500">Not Furnished</span>}
-                </li>
-                <li></li>
+            <ul className="flex flex-wrap items-center  mt-6 gap-4 sm:gap-6  text-lg">
+              <li className="flex items-center gap-2 whitespace-nowrap">
+                <FaBed size={25} className="text-lg" />
+                {listing.bedrooms > 1
+                  ? `${listing.bedrooms} Bedrooms`
+                  : `${listing.bedrooms} Bedroom`}
+              </li>
+              <li className="flex items-center gap-2 whitespace-nowrap">
+                <FaBath size={25} className="text-lg" />
+                {listing.bathrooms > 1
+                  ? `${listing.bathrooms} Bathrooms`
+                  : `${listing.bathrooms} Bathroom`}
+              </li>
+              <li className="flex items-center gap-2 whitespace-nowrap">
+                {" "}
+                <FaParking size={25} className="text-lg" />
+                {listing.parking ? (
+                  <span className="text-green-500">Parking Spot</span>
+                ) : (
+                  <span className="text-red-500">No Parking Spot</span>
+                )}
+              </li>
+              <li className="flex items-center gap-2 whitespace-nowrap">
+                <FaCouch size={25} className="text-lg" />
+                {listing.furnished ? (
+                  <span className="text-green-500">Furnished</span>
+                ) : (
+                  <span className="text-red-500">Not Furnished</span>
+                )}
+              </li>
+              <li></li>
             </ul>
-            {currentUser && listing.userId !== currentUser._id && !contactLandlord && (
-
-            <button onClick={()=>setContactLandlord(true)} className="mt-3 p-3 uppercase rounded-lg bg-slate-800 text-white">Contact to landlord</button>
-            )}
+            {currentUser &&
+              listing.userId !== currentUser._id &&
+              !contactLandlord && (
+                <button
+                  onClick={() => setContactLandlord(true)}
+                  className="mt-3 p-3 uppercase rounded-lg bg-slate-800 text-white"
+                >
+                  Contact to landlord
+                </button>
+              )}
             {contactLandlord && <ContactLandlord listing={listing} />}
           </div>
         </>

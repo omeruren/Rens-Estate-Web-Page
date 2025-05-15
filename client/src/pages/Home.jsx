@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules";
+import { Navigation,Pagination,Autoplay } from "swiper/modules";
 import { ListingCard } from "../components/ListingCard";
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
-  SwiperCore.use([Navigation]);
-  console.log(saleListings);
+  SwiperCore.use([Navigation,Pagination,Autoplay]);
+
+ 
+;
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -63,17 +65,21 @@ export default function Home() {
           Let's Get Started
         </Link>
       </div>
-      <Swiper navigation>
+      <Swiper navigation pagination autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}>
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
             <SwiperSlide>
               <div
+               data-swiper-autoplay="2000"
                 style={{
                   background: `url(${listing.images[0]}) center no-repeat`,
                   backgroundSize: "cover",
                 }}
-                className="h-[500px]"
+                className="h-[650px]"
                 key={listing._id}
               ></div>
             </SwiperSlide>
@@ -87,14 +93,14 @@ export default function Home() {
                 Recent Offers
               </h2>
             </div>
-            <div className="flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {offerListings.map((listing) => (
                 <ListingCard listing={listing} key={listing._id} />
               ))}
             </div>
             <div className="text-center mt-5 mb-5">
               <Link
-                className="ttext-center text-sm sm:text-xl text-blue-800 hover:underline"
+                className="text-center text-sm sm:text-xl text-blue-800 hover:underline"
                 to={"/search?offer=true"}
               >
                 Show more Offers
@@ -107,7 +113,7 @@ export default function Home() {
             <div className="my-3 text-center mt-5 mb-5">
               <h2 className="text-2xl font-semibold">Recent Places for Rent</h2>
             </div>
-            <div className="flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {rentListings.map((listing) => (
                 <ListingCard listing={listing} key={listing._id} />
               ))}
@@ -123,11 +129,11 @@ export default function Home() {
           </div>
         )}
         {saleListings && saleListings.length > 0 && (
-          <div className=" pt-5 border-b-2 border-b-slate-300">
+          <div className="pt-5 border-b-2 border-b-slate-300">
             <div className="my-3 text-center mt-5 mb-5">
               <h2 className="text-2xl font-semibold">Recent Places for Sale</h2>
             </div>
-            <div className="flex flex-wrap gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {saleListings.map((listing) => (
                 <ListingCard listing={listing} key={listing._id} />
               ))}
