@@ -32,10 +32,10 @@ export const Footer = () => {
     }
   ];
   return (
-    <footer className=" bg-white py-8">
+    <footer className=" bg-white py-8 dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <div className=" flex flex-wrap justify-center gap-x-4 sm:gap-x-6 text-lg text-gray-600">
+        <div className=" flex flex-wrap justify-center  dark:text-green-500 gap-x-4 sm:gap-x-6 text-lg text-gray-600">
           {links.map((link, idx) => (
               <Link 
             key={idx} 
@@ -50,7 +50,7 @@ export const Footer = () => {
         </div>
 
         {/* Social Icons */}
-        <div className="mt-6 flex justify-center space-x-6 text-gray-500 text-xl">
+        <div className="mt-6 flex justify-center space-x-6 dark:text-white text-gray-500 text-xl">
           {socialIcons.map((item, idx) => (
             <a
               key={idx}
@@ -64,7 +64,7 @@ export const Footer = () => {
           ))}
         </div>
 
-        <p className="mt-6 text-center text-lg text-gray-500">
+        <p className="mt-6 text-center text-lg dark:text-green-500 text-gray-500">
           © 2025 Rens Estate, Inc. All rights reserved.
         </p>
       </div>

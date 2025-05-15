@@ -129,13 +129,13 @@ export const Search = () => {
     setListings([...listings, ...data]);
   };
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className=" p-7 border-b-2 md:border-r-2 md:min-h-screen border-slate-200">
+    <div className="flex flex-col md:flex-row border-b dark:bg-black">
+      <div className=" p-7 border-b-2 md:border-r-2 md:min-h-screen border-slate-200  dark:text-white">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex items-center flex-wrap gap-2">
             <label className="whitespace-nowrap">Search Term</label>
             <input
-              className="border rounded-lg p-3 w-full"
+              className="border rounded-lg p-3 w-full  dark:bg-slate-600 dark:text-black"
               type="text"
               placeholder="Search..."
               id="searchTerm"
@@ -219,7 +219,7 @@ export const Search = () => {
           <div className="flex gap-2 items-center">
             <label className="font-semibold pr-2">Sort</label>
             <select
-              className="border rounded-lg p-3"
+              className="border rounded-lg p-3 dark:bg-slate-600"
               id="sort_order"
               onChange={handleChange}
               defaultValue={"created_at_desc"}

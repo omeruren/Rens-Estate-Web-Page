@@ -39,7 +39,7 @@ export default function Header() {
   }, [location.search]);
 
   return (
-    <header className="bg-slate-200 shadow-md">
+    <header className=" bg-slate-200  dark:bg-black shadow-md dark:drop-shadow-md dark:shadow-md dark:shadow-slate-500">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
           <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
@@ -48,8 +48,8 @@ export default function Header() {
           </h1>
         </Link>
 
-        <div className="flex gap-4 items-center text-cyan-700 dark:text-green-500">
-          <ul className="flex gap-4">
+        <div className="flex gap-4 items-center">
+          <ul className="flex gap-4  text-cyan-700 dark:text-green-500">
             <li className="hidden sm:inline hover:underline ">
               <Link to={"/"}>Home</Link>
             </li>
@@ -86,11 +86,11 @@ export default function Header() {
               <FaSearch className="text-slate-500" />
             </button>
           </form>
-          <button onClick={() => setMode(!mode)}>
+          <button className="pl-5" onClick={() => setMode(!mode)}>
             {mode ? (
-              <FaSun className="text-slate-500" />
+              <FaSun size={25} className="text-white" />
             ) : (
-              <FaMoon className="text-slate-500" />
+              <FaMoon size={25} className="" />
             )}
           </button>
         </div>
