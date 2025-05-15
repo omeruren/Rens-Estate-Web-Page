@@ -49,7 +49,7 @@ export default function Header() {
         </Link>
 
         <div className="flex gap-4 items-center">
-          <ul className="flex gap-4  text-cyan-700 dark:text-green-500">
+          <ul className="flex gap-4  dark:text-blue-500">
             <li className="hidden sm:inline hover:underline ">
               <Link to={"/"}>Home</Link>
             </li>
@@ -58,14 +58,16 @@ export default function Header() {
               <Link to={"/about"}>About</Link>
             </li>
             {currentUser ? (
-              <img
+              <Link to={"/profile"}>
+              <img 
                 className="rounded-full h-7 w-7 object-cover"
                 src={currentUser.avatar}
                 alt=""
-              />
+                />
+                </Link>
             ) : (
-              <li className=" hover:underline">
-                <Link to={"/profile"}>Sign in</Link>
+              <li className="hover:underline">
+                <Link to={"/sign-in"}>Sign in</Link>
               </li>
             )}
           </ul>

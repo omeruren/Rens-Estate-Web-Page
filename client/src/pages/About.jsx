@@ -14,7 +14,7 @@ export default function About() {
             <div>
            <h2 className="mt-8 text-3xl font-bold mb-4 text-center dark:text-white">Our Mission</h2>
            <p className="">
-             We believe that every home has a story, and our mission is to help you write yours. Whether you're looking for your first home, expanding for a growing family, or investing in property, we’re committed to finding the perfect match for your needs. At Unikorns Realty, your satisfaction is our top priority because your future deserves the right foundation.
+             We believe that every home has a story, and our mission is to help you write yours. Whether you're looking for your first home, expanding for a growing family, or investing in property, we’re committed to finding the perfect match for your needs. At Rens Realty, your satisfaction is our top priority because your future deserves the right foundation.
            </p>
          </div>
          </div>

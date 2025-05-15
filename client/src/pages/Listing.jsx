@@ -53,7 +53,7 @@ export const Listing = () => {
       currency: "EUR",
     }).format(price);
   return (
-    <main>
+    <main className=" dark:text-white dark:bg-black min-h-full border-b">
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong</p>
@@ -100,13 +100,13 @@ export const Listing = () => {
               )}
               {listing.type === "forRent" && " / month"}
             </p>
-            <div className="flex items-center gap-2 justify-center">
+            <div className="text-black dark:text-white text-xl flex items-center gap-2 ">
               <FaMapMarkerAlt size={25} className="border-b text-green-600" />
-              <p className="  text-slate-600 text-lg text-bold">
+              <p className="text-bold">
                 {listing.location}
               </p>
             </div>
-            <div className="flex jus gap-4 mt-2">
+            <div className="flex  gap-4 mt-2">
               <p className="bg-red-700 w-full max-w-[200px] text-white text-center p-1 rounded-md">
                 {listing.type === "forRent" ? "For Rent" : "For Sale"}
               </p>
@@ -116,8 +116,8 @@ export const Listing = () => {
                 </p>
               )}{" "}
             </div>
-            <p className="text-slate-800 text-justify text-lg">
-              <span className="font-semibold text-black">Description - </span>
+            <p className=" text-black dark:text-white text-justify text-lg">
+              <span className="font-semibold">Description - </span>
               {listing.description}
             </p>
             <ul className="flex flex-wrap items-center  mt-6 gap-4 sm:gap-6  text-lg">
@@ -157,7 +157,7 @@ export const Listing = () => {
               !contactLandlord && (
                 <button
                   onClick={() => setContactLandlord(true)}
-                  className="mt-3 p-3 uppercase rounded-lg bg-slate-800 text-white"
+                  className="mt-3 p-3 uppercase rounded-lg dark:bg-slate-400 bg-slate-800 text-white"
                 >
                   Contact to landlord
                 </button>
