@@ -134,7 +134,7 @@ export default function Home() {
           </div>
         )}
         {saleListings && saleListings.length > 0 && (
-          <div className="pt-5 border-b-2 border-b-slate-300">
+          <div className="pt-5 ">
             <div className="my-3 text-center mt-5 mb-5">
               <h2 className="text-base md:text-4xl font-semibold text-center dark:text-white tracking-wider">Recent Places for Sale</h2>
             </div>

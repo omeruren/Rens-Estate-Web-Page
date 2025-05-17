@@ -40,7 +40,7 @@ export default function SignUp() {
     }
   };
   return (
-    <div className="p-3 min-h-full items-center border-b flex justify-center dark:bg-black dark:text-white">
+    <div className="p-3 min-h-full items-center flex justify-center dark:bg-black dark:text-white">
       <div className="max-w-lg w-full mx-auto text-center">
         <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

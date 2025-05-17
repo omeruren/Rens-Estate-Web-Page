@@ -35,10 +35,10 @@ export const ContactLandlord = ({ listing }) => {
     <>
       {landlord && !loading && !error && (
         <div className="flex flex-col gap-2 mt-5">
-          <p className="text-lg text-slate-500 font-semibold text-center">
-            Contact <span className="text-slate-800"> {landlord.username} </span>{" "}
+          <p className="text-lg text-slate-500 font-semibold text-center dark:text-white">
+            Contact <span className="text-slate-800  dark:text-blue-500"> {landlord.username} </span>{" "}
             for{" "}
-            <span className="text-slate-800">{listing.name.toLowerCase()}</span>
+            <span className="text-slate-800 dark:text-blue-500">{listing.name.toLowerCase()}</span>
           </p>
           <textarea
             name="message"
@@ -47,7 +47,7 @@ export const ContactLandlord = ({ listing }) => {
             value={message}
             onChange={handleChange}
             placeholder="Write your message here"
-            className="w-full border-2 border-gray-300 rounded-md p-2 mt-2 focus:outline-none focus:border-blue-500"
+            className=" w-full border-2 border-gray-300 dark:text-black rounded-md p-2 mt-2 focus:outline-none focus:border-blue-500"
           ></textarea>
           <Link
           className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2 text-center"

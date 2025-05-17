@@ -129,7 +129,7 @@ export const Search = () => {
     setListings([...listings, ...data]);
   };
   return (
-    <div className="flex flex-col md:flex-row border-b dark:bg-black">
+    <div className="flex flex-col md:flex-row  dark:bg-black">
       <div className=" p-7 border-b-2 md:border-r-2 md:min-h-screen border-slate-200  dark:text-white">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="flex items-center flex-wrap gap-2">

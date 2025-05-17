@@ -19,33 +19,33 @@ export const Footer = () => {
 
   const links = [
     {
-      name:"Home",
-      href:"/"
+      name: "Home",
+      href: "/",
     },
     {
-      name:"About",
-      href:"/about"
+      name: "About",
+      href: "/about",
     },
     {
-      name:"Search",
-      href:"/search"
-    }
+      name: "Search",
+      href: "/search",
+    },
   ];
   return (
-    <footer className=" bg-white py-8 dark:bg-black">
+    <footer className="bg-white py-8 border-t dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className=" flex flex-wrap justify-center  dark:text-blue-500 gap-x-4 sm:gap-x-6 text-lg text-gray-600">
           {links.map((link, idx) => (
-              <Link 
-            key={idx} 
-            href={link.href} 
-            target="_blank"
-            _hover={{ color: "blue.400", transform: "scale(1.1)" }} 
-            transition="all 0.2s"
-          >
-            {link.name}
-          </Link>
+            <Link
+              key={idx}
+              href={link.href}
+              target="_blank"
+              _hover={{ color: "blue.400", transform: "scale(1.1)" }}
+              transition="all 0.2s"
+            >
+              {link.name}
+            </Link>
           ))}
         </div>
 
